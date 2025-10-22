@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopEnglish - Controle de aula Demonstrativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'usa-blue': '#0A3161',
+                        'usa-red': '#B31942',
+                        'usa-blue-light': '#3C3B6E',
+                        'usa-red-light': '#B22234',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .star-pattern {
+            background-image: 
+                radial-gradient(circle, white 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+        
+        .stripes-pattern {
+            background: linear-gradient(
+                to bottom,
+                white 0%,
+                white 7.69%,
+                white 7.69%,
+                white 15.38%,
+                white 15.38%,
+                white 23.07%,
+                white 23.07%,
+                white 30.76%,
+                white 30.76%,
+                white 38.45%,
+                white 38.45%,
+                white 46.14%,
+                white 46.14%,
+                white 53.83%,
+                white 53.83%,
+                white 61.52%,
+                white 61.52%,
+                white 69.21%,
+                #B31942 69.21%,
+                #B31942 76.9%,
+                #B31942 76.9%,
+                #B31942 84.59%,
+                #B31942 84.59%,
+                #B31942 92.28%,
+                #B31942 92.28%,
+                #B31942 100%
+            );
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 font-sans">
+    <!-- Header with Logo and Stripes -->
+    <div class="stripes-pattern h-3"></div>
+    
+    <header class="bg-white shadow-md border-b-4 border-usa-red">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-center gap-4">
+                <img src="https://top-english-minio.ryho2k.easypanel.host/typebot/logo%20top.png" 
+                     alt="TopEnglish Logo" 
+                     class="h-16 md:h-20 object-contain">
+                <div class="hidden md:block">
+                    <h1 class="text-3xl font-bold text-usa-blue">TopEnglish</h1>
+                    <p class="text-sm text-gray-600 font-medium">Excelência em Educação de Inglês</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border-t-8 border-usa-blue">
+            <!-- Card Header -->
+            <div class="bg-gradient-to-r from-usa-blue via-usa-blue-light to-usa-blue p-8 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-40 h-40 star-pattern opacity-20 rounded-bl-full"></div>
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Controle de Aulas Demonstrativas</h2>
+                    <p class="text-blue-100 text-lg font-medium">Agende seu lembrete de aula demonstrativa</p>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="p-8 md:p-10">
+                <form id="agendamentoForm" class="space-y-7">
+                    <!-- Professor Selection -->
+                    <div class="relative">
+                        <label for="professor" class="block text-sm font-bold text-usa-blue mb-2 uppercase tracking-wide">
+                            <span class="inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                                </svg>
+                                Professor
+                            </span>
+                        </label>
+                        <select id="professor" name="professor" required
+                            class="w-full px-4 py-3.5 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-usa-blue/20 focus:border-usa-blue outline-none transition-all text-gray-800 font-medium bg-white hover:border-usa-blue-light">
+                            <option value="">Selecione um professor</option>
+                            {% for prof in professores %}
+                            <option value="{{ prof }}">{{ prof }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Student Name -->
+                    <div class="relative">
+                        <label for="nome_aluno" class="block text-sm font-bold text-usa-blue mb-2 uppercase tracking-wide">
+                            <span class="inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                </svg>
+                                Nome do Aluno
+                                <span class="text-gray-400 font-normal text-xs">(opcional)</span>
+                            </span>
+                        </label>
+                        <input type="text" id="nome_aluno" name="nome_aluno" placeholder="Digite o nome do aluno"
+                            class="w-full px-4 py-3.5 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-usa-blue/20 focus:border-usa-blue outline-none transition-all text-gray-800 font-medium hover:border-usa-blue-light">
+                    </div>
+
+                    <!-- Reminder Date/Time -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border-2 border-usa-blue/30 shadow-inner">
+                        <h3 class="text-sm font-bold text-usa-blue mb-4 uppercase tracking-wide flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                            </svg>
+                            Data e Hora do Lembrete
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="data_lembrete" class="block text-xs font-semibold text-usa-blue-light mb-2 uppercase">Data</label>
+                                <input type="date" id="data_lembrete" name="data_lembrete" required
+                                    class="w-full px-4 py-3 border-2 border-usa-blue/30 rounded-xl focus:ring-4 focus:ring-usa-blue/20 focus:border-usa-blue outline-none bg-white font-medium">
+                            </div>
+                            <div>
+                                <label for="hora_lembrete" class="block text-xs font-semibold text-usa-blue-light mb-2 uppercase">Hora</label>
+                                <input type="time" id="hora_lembrete" name="hora_lembrete" required
+                                    class="w-full px-4 py-3 border-2 border-usa-blue/30 rounded-xl focus:ring-4 focus:ring-usa-blue/20 focus:border-usa-blue outline-none bg-white font-medium">
+                            </div>
+                        </div>
+                        <div class="mt-3 flex items-start gap-2 text-xs text-usa-blue-light bg-white/60 p-3 rounded-lg">
+                            <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="font-medium">O evento no calendário terá duração de 1 hora a partir do horário selecionado</span>
+                        </div>
+                    </div>
+
+                    <!-- Class Date/Time -->
+                    <div class="bg-gradient-to-br from-red-50 to-rose-100 p-6 rounded-2xl border-2 border-usa-red/30 shadow-inner">
+                        <h3 class="text-sm font-bold text-usa-red mb-4 uppercase tracking-wide flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                            Data e Hora da Aula
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="data_aula" class="block text-xs font-semibold text-usa-red-light mb-2 uppercase">Data</label>
+                                <input type="date" id="data_aula" name="data_aula" required
+                                    class="w-full px-4 py-3 border-2 border-usa-red/30 rounded-xl focus:ring-4 focus:ring-usa-red/20 focus:border-usa-red outline-none bg-white font-medium">
+                            </div>
+                            <div>
+                                <label for="hora_aula" class="block text-xs font-semibold text-usa-red-light mb-2 uppercase">Hora</label>
+                                <input type="time" id="hora_aula" name="hora_aula" required
+                                    class="w-full px-4 py-3 border-2 border-usa-red/30 rounded-xl focus:ring-4 focus:ring-usa-red/20 focus:border-usa-red outline-none bg-white font-medium">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="space-y-4 bg-slate-50 p-6 rounded-2xl border-2 border-slate-200">
+                        <h3 class="text-sm font-bold text-usa-blue mb-3 uppercase tracking-wide">Notificações</h3>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" id="notificar_professor" name="notificar_professor" checked
+                                class="w-5 h-5 text-usa-blue bg-white border-2 border-gray-300 rounded focus:ring-4 focus:ring-usa-blue/20 transition-all">
+                            <span class="text-sm font-semibold text-gray-700 group-hover:text-usa-blue transition-colors">
+                                Desejo ser notificado
+                            </span>
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" id="notificar_aluno" name="notificar_aluno"
+                                class="w-5 h-5 text-usa-blue bg-white border-2 border-gray-300 rounded focus:ring-4 focus:ring-usa-blue/20 transition-all">
+                            <span class="text-sm font-semibold text-gray-700 group-hover:text-usa-blue transition-colors">
+                                Notificar aluno
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Student Phone -->
+                    <div id="telefone_container" class="hidden">
+                        <div class="bg-gradient-to-br from-rose-50 to-red-100 p-6 rounded-2xl border-2 border-usa-red shadow-lg">
+                            <label class="block text-sm font-bold text-usa-red mb-3 uppercase tracking-wide flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                Telefone do Aluno
+                            </label>
+                            <div class="bg-white/80 backdrop-blur p-4 rounded-xl mb-4 border border-usa-red/30">
+                                <p class="text-xs font-bold text-usa-red flex items-start gap-2">
+                                    <span class="text-lg">⚠️</span>
+                                    <span>Digite apenas números. NÃO inclua o 9 inicial do número.</span>
+                                </p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="w-28">
+                                    <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="2" pattern="\d{2}"
+                                        class="w-full px-4 py-3.5 border-2 border-usa-red/40 rounded-xl focus:ring-4 focus:ring-usa-red/20 focus:border-usa-red outline-none bg-white font-bold text-center text-lg">
+                                    <p class="text-xs text-gray-600 mt-1.5 text-center font-semibold">2 dígitos</p>
+                                </div>
+                                <div class="flex-1">
+                                    <input type="text" id="numero" name="numero" placeholder="Número (8 dígitos)" maxlength="8" pattern="\d{8}"
+                                        class="w-full px-4 py-3.5 border-2 border-usa-red/40 rounded-xl focus:ring-4 focus:ring-usa-red/20 focus:border-usa-red outline-none bg-white font-bold text-lg">
+                                    <p class="text-xs text-gray-600 mt-1.5 font-semibold">8 dígitos (sem o 9)</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-gray-700 bg-white/60 p-3 rounded-lg font-medium">
+                                Exemplo: DDD <span class="font-bold text-usa-red">61</span>, Número <span class="font-bold text-usa-red">99260216</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <div id="mensagem" class="hidden"></div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-gradient-to-r from-usa-red to-usa-red-light hover:from-usa-red-light hover:to-usa-red text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 text-lg uppercase tracking-wide">
+                        <span class="flex items-center justify-center gap-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            Agendar Lembrete
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-12 mb-6 text-center">
+        <div class="stripes-pattern h-2 mb-4"></div>
+        <p class="text-sm text-gray-600 font-medium">
+            © 2025 <span class="font-bold text-usa-blue">TopEnglish</span> - Excelência em Educação de Inglês
+        </p>
+    </footer>
+
+    <script>
+        // Toggle telefone do aluno
+        const notificarAlunoCheckbox = document.getElementById('notificar_aluno');
+        const telefoneContainer = document.getElementById('telefone_container');
+        const dddInput = document.getElementById('ddd');
+        const numeroInput = document.getElementById('numero');
+
+        notificarAlunoCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                telefoneContainer.classList.remove('hidden');
+                dddInput.required = true;
+                numeroInput.required = true;
+            } else {
+                telefoneContainer.classList.add('hidden');
+                dddInput.required = false;
+                numeroInput.required = false;
+                dddInput.value = '';
+                numeroInput.value = '';
+            }
+        });
+
+        // Validar apenas números nos campos de telefone
+        dddInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
+        numeroInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
+        // Submissão do formulário
+        document.getElementById('agendamentoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const mensagemDiv = document.getElementById('mensagem');
+            const submitBtn = document.getElementById('submitBtn');
+            mensagemDiv.classList.add('hidden');
+
+            // Desabilitar botão e mostrar loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <span class="flex items-center justify-center gap-3">
+                    <svg class="animate-spin h-6 w-6" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    PROCESSANDO...
+                </span>
+            `;
+
+            const formData = {
+                professor: document.getElementById('professor').value,
+                nome_aluno: document.getElementById('nome_aluno').value,
+                data_lembrete: document.getElementById('data_lembrete').value,
+                hora_lembrete: document.getElementById('hora_lembrete').value,
+                data_aula: document.getElementById('data_aula').value,
+                hora_aula: document.getElementById('hora_aula').value,
+                notificar_professor: document.getElementById('notificar_professor').checked,
+                notificar_aluno: document.getElementById('notificar_aluno').checked,
+                ddd: document.getElementById('ddd').value,
+                numero: document.getElementById('numero').value
+            };
+
+            try {
+                const response = await fetch('/agendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.sucesso) {
+                    // Sucesso - Exibir mensagem do n8n
+                    mensagemDiv.className = 'p-6 bg-gradient-to-r from-green-50 to-emerald-100 border-2 border-green-400 text-green-800 rounded-2xl shadow-lg';
+                    mensagemDiv.innerHTML = `
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-bold text-lg mb-1">✓ Requisição Enviada!</p>
+                                <p class="font-semibold text-base">${result.mensagem}</p>
+                                <details class="mt-3">
+                                    <summary class="cursor-pointer hover:text-green-900 font-semibold text-sm">Ver dados enviados</summary>
+                                    <pre class="mt-2 bg-white p-3 rounded-lg overflow-auto text-xs border border-green-300">${JSON.stringify(result.dados, null, 2)}</pre>
+                                </details>
+                            </div>
+                        </div>
+                    `;
+                    // Limpar formulário
+                    document.getElementById('agendamentoForm').reset();
+                    telefoneContainer.classList.add('hidden');
+                } else {
+                    // Erro - Exibir mensagem de erro do n8n
+                    mensagemDiv.className = 'p-6 bg-gradient-to-r from-red-50 to-rose-100 border-2 border-red-400 text-red-800 rounded-2xl shadow-lg';
+                    mensagemDiv.innerHTML = `
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                                    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-bold text-lg mb-1">✗ ERRO</p>
+                                <p class="font-semibold text-base">${result.erro}</p>
+                                ${result.status_code ? `<p class="text-xs mt-2 font-medium">Código de Status: ${result.status_code}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                mensagemDiv.classList.remove('hidden');
+                mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            } catch (error) {
+                // Erro de rede ou outro erro do cliente
+                mensagemDiv.className = 'p-6 bg-gradient-to-r from-red-50 to-rose-100 border-2 border-red-400 text-red-800 rounded-2xl shadow-lg';
+                mensagemDiv.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-bold text-lg mb-1">✗ ERRO DE CONEXÃO</p>
+                            <p class="font-semibold text-base">${error.message}</p>
+                        </div>
+                    </div>
+                `;
+                mensagemDiv.classList.remove('hidden');
+            } finally {
+                // Reabilitar botão
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `
+                    <span class="flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        AGENDAR LEMBRETE
+                    </span>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
